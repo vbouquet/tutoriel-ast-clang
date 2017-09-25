@@ -7,7 +7,7 @@
 - [Des exemples d'utilisations de LLVM et CLANG](https://github.com/eliben/llvm-clang-samples)
 - [Clang ASTMatcher, ASTVisteur et réécriture de code](https://eli.thegreenplace.net/2014/07/29/ast-matchers-and-clang-refactoring-tools)
 
-## Pré-requis
+## Pré-requis
 1. Nous utilisons vagrant pour installer les dépendances dans une machine virtuelle, vous pouvez l'obtenir ici : [Télécharger vagrant](https://www.vagrantup.com/downloads.html)
 2. Nous utilisons virtualbox pour déployer la machine virtuelle, vous pouvez l'obtenir ici: [Télécharger Virtualbox](https://www.virtualbox.org/wiki/Downloads)
 3. Vous pouvez utiliser l'outil de gestion de version git pour télécharger ce dépôt ou bien le faire manuel.
