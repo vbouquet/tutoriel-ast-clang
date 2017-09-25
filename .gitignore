@@ -1,0 +1,18 @@
+# Ignore build executables
+build/
+*.pyc
+*.dot
+
+# Ignore IDE and text editors
+.vscode
+
+# Ignore output files
+output/
+
+# Ignore librairies
+lib/*
+!lib/json/
+
+# Ignore exemples
+exemples/expected.c
+exemples/ressources.h
