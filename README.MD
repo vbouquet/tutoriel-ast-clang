@@ -21,37 +21,34 @@
 4. Entrez dans la machine virtuelle avec la commande ```vagrant ssh``` et vous êtes maintenant isolé de votre système et prêt à travailler avec clang.
 5. Pour vérifier que clang a été correctement installé et que le projet a compilé lancez les commandes:
 
+ASTMatcher:
 ```
 cd /vagrant
-
-# Executable de l'AST Matcher
 build/clang_ast_matcher exemples/file.c -- -I/vagrant/libs/clang_llvm/lib/clang/3.9.1/include/
-
-# Executable de l'AST Visitor (pour la réécriture de code)
-build/clang_ast_visitor exemples/file.c -- -I/vagrant/libs/clang_llvm/lib/clang/3.9.1/include/
 ```
 
 Vous devriez voir apparaître la sortie suivante pour l'AST Matcher
 ```
 #include stdio.h
-#include stdlib.h
 Fonction définie: somme
-Fonction appelée: a
-Fonction appelée: b
 Fonction définie: division
-Fonction appelée: a
-Fonction appelée: b
 Fonction définie: hello_world
 Fonction appelée: printf
 Fonction définie: main
 Fonction appelée: hello_world
 Fonction appelée: somme
-Fonction appelée: a
-Fonction appelée: b
 Fonction appelée: division
-Fonction appelée: a
-Fonction appelée: b
 ```
+
+ASTVisitor:
+```
+cd /vagrant
+
+# Executable de l'AST Visitor (pour la réécriture de code)
+build/clang_ast_visitor exemples/file.c -- -I/vagrant/libs/clang_llvm/lib/clang/3.9.1/include/
+```
+
+Vous devriez voir apparaître un message d'erreur, ceci est normal. Vérifiez qu'un fichier file.c est présent dans le dossier output et qu'une fonction 'somme_mglwnafh_Cthulhu_Rlyeh_wgah_nagl_fhtagn' est bien présente.
 
 Votre machine virtuelle partage avec votre système d'explotation le dossier tutoriel-ast-clang. Vous pouvez donc faire toutes les modifications que vous souhaitez à l'intérieur, et celles ci se récupercuterons dans la machine virtuelle dans le dossier /vagrant.
 
@@ -77,43 +74,35 @@ cd /vagrant
 ```
 6. Installer toutes les dépendances avec la commande ```script/install.sh```
 7. Vérifier que l'installation s'est correctement effectué en lançant les commandes suivantes:
+
+ASTMatcher:
 ```
 cd /vagrant
 
-# Executable de l'AST Matcher
 build/clang_ast_matcher exemples/file.c -- -I/vagrant/libs/clang_llvm/lib/clang/3.9.1/include/
 ```
 
 Vous devriez voir apparaître la sortie suivante pour l'AST Matcher
 ```
 #include stdio.h
-#include stdlib.h
 Fonction définie: somme
-Fonction appelée: a
-Fonction appelée: b
 Fonction définie: division
-Fonction appelée: a
-Fonction appelée: b
 Fonction définie: hello_world
 Fonction appelée: printf
 Fonction définie: main
 Fonction appelée: hello_world
 Fonction appelée: somme
-Fonction appelée: a
-Fonction appelée: b
 Fonction appelée: division
-Fonction appelée: a
-Fonction appelée: b
 ```
 
+ASTVisitor:
 ```
 cd /vagrant
 
-# Executable de l'AST Visitor (pour la réécriture de code)
 build/clang_ast_visitor exemples/file.c -- -I/vagrant/libs/clang_llvm/lib/clang/3.9.1/include/
 ```
 
-Vous devriez voir apparaître un message d'erreur, ceci est normal. Vérifiez qu'un fichier file.c est présent dans le dossier output et qu'une fonction 'somme_mglwnafh_Cthulhu_Rlyeh_wgah_nagl_fhtagn' est bien présente.
+Vous devriez voir apparaître un message d'erreur, ceci est **normal**. Vérifiez qu'un fichier file.c est présent dans le dossier output et qu'une fonction 'somme_mglwnafh_Cthulhu_Rlyeh_wgah_nagl_fhtagn' est bien présente.
 
 ## Commandes (utilitaire)
 
