@@ -6,6 +6,9 @@ build/
 # Ignore librairies
 libs/
 
+# Ignore output files
+output/
+
 # Ignore IDE and text editors
 .vscode
 

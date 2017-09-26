@@ -13,6 +13,7 @@ echo "Setting up project folders"
 cd /vagrant
 mkdir build
 mkdir libs
+mkdir output
 
 echo "Installing clang"
 cd /vagrant/libs

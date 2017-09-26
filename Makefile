@@ -87,13 +87,17 @@ CLANG_LIBS := \
 # build artifacts.
 SRC_CLANG_DIR := src
 BUILDDIR := build
-FILE_BIN := clang_ast_analysis
-FILE_SRC := clang_ast_analysis.cpp
+FILE_BIN := clang_ast_matcher
+FILE_SRC := clang_ast_matcher.cpp
+FILE_BIN2 := clang_ast_vistor
+FILE_SRC2 := clang_ast_visitor.cpp
+
 
 .PHONY: all
 all: make_builddir \
 	emit_build_config \
-	$(BUILDDIR)/$(FILE_BIN)
+	$(BUILDDIR)/$(FILE_BIN) \
+	$(BUILDDIR)/$(FILE_BIN2) \
 
 .PHONY: emit_build_config
 emit_build_config: make_builddir
@@ -103,7 +107,13 @@ emit_build_config: make_builddir
 make_builddir:
 	@test -d $(BUILDDIR) || mkdir $(BUILDDIR)
 
+# Supprimer ou mettre en commentaire si l'AST Matcher n'est pas utilisé
 $(BUILDDIR)/$(FILE_BIN): $(SRC_CLANG_DIR)/$(FILE_SRC)
+		$(CXX) $(CXXFLAGS) $(LLVM_CXXFLAGS) $(CLANG_INCLUDES) $^ \
+			$(CLANG_LIBS) $(LLVM_LDFLAGS) -o $@
+
+# Supprimer ou mettre en commentaire si l'AST Visitor n'est pas utilisé
+$(BUILDDIR)/$(FILE_BIN2): $(SRC_CLANG_DIR)/$(FILE_SRC2)
 		$(CXX) $(CXXFLAGS) $(LLVM_CXXFLAGS) $(CLANG_INCLUDES) $^ \
 			$(CLANG_LIBS) $(LLVM_LDFLAGS) -o $@
 
