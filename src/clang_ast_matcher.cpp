@@ -58,7 +58,7 @@ class FunctionDef : public MatchFinder::MatchCallback {
 public:
     virtual void run(const MatchFinder::MatchResult &Result) {
         if (const FunctionDecl *fct = Result.Nodes.getNodeAs<FunctionDecl>("FunctionDef")) {
-            
+
             std::cout<<"Fonction définie: "<<fct->getNameAsString()<<std::endl;
         }
     }
@@ -70,7 +70,9 @@ class FunctionCall: public MatchFinder::MatchCallback {
 public:
     virtual void run(const MatchFinder::MatchResult &Result) {
         if (const DeclRefExpr *fct = Result.Nodes.getNodeAs<DeclRefExpr>("FunctionCall")) {
-            std::cout<<"Fonction appelée: "<<fct->getFoundDecl()->getNameAsString()<<std::endl;
+            if ( fct->getDecl()->getKind() == Decl::Function) {
+                std::cout<<"Fonction appelée: "<<fct->getFoundDecl()->getNameAsString()<<std::endl;
+            }
         }
     }
 };
