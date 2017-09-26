@@ -2,10 +2,7 @@
 *               Exemples simples d'utilisation d'AST matcher avec clang                 *
 *                                                                                       *
 * Author: Valentin Bouquet                                                              *
-*                                                                                       *
-* How to:                                                                               *
-* - Build:  ~/make                                                                      *
-* - Run:    ~/build/LoopConvert <file.c> -- -I/usr/clang                                *
+*                                                                                       *                            *
 ****************************************************************************************/
 
 // Clang librairies
@@ -61,6 +58,7 @@ class FunctionDef : public MatchFinder::MatchCallback {
 public:
     virtual void run(const MatchFinder::MatchResult &Result) {
         if (const FunctionDecl *fct = Result.Nodes.getNodeAs<FunctionDecl>("FunctionDef")) {
+            
             std::cout<<"Fonction définie: "<<fct->getNameAsString()<<std::endl;
         }
     }

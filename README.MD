@@ -14,19 +14,21 @@
 2. Nous utilisons virtualbox pour déployer la machine virtuelle, vous pouvez l'obtenir ici: [Télécharger Virtualbox](https://www.virtualbox.org/wiki/Downloads)
 3. Vous pouvez utiliser l'outil de gestion de version git pour télécharger ce dépôt ou bien le faire manuel.
 
-## Installation
-1. Télécharger le dépôt manuellement ou lancez la commande ```git clone https://github.com/vbouquet/tutoriel-ast-clang.git```
-2. Ouvrez un terminal (**Attention! En mode administrateur si vous êtes sur windows**) et situez vous dans le dossier du répertoire ~/[VOTRE_CHEMIN]/tutoriel-ast-clang
-3. Déployez la machine virtuelle avec vagrant (**nécessite une connexion internet**)```vagrant up``` puis redémarrer la à la fin de l'exécution avec la commande ```vagrant reload```. Ne paniquez pas si vous voyez du texte rouge défiler, ceci est normal.
+## Installation avec vagrant (conseillé)
+1. Télécharger le dépôt manuellement à l'addresse https://github.com/vbouquet/tutoriel-ast-clang/archive/master.zip ou cloner le avec git ```git clone https://github.com/vbouquet/tutoriel-ast-clang.git```
+2. Ouvrez un terminal (**Attention! En mode administrateur si vous êtes sur windows**) et situez vous dans le dossier du répertoire ~/[VOTRE_CHEMIN]/tutoriel-ast-clang (vous pouvez d'ailleurs renomer le dossier si vous le souhaitez).
+3. Déployez la machine virtuelle avec vagrant (**nécessite une connexion internet**) ```vagrant up``` puis redémarrer la à la fin de l'exécution avec la commande ```vagrant reload```. Ne paniquez pas si vous voyez du texte rouge défiler, ceci est normal.
 4. Entrez dans la machine virtuelle avec la commande ```vagrant ssh``` et vous êtes maintenant isolé de votre système et prêt à travailler avec clang.
 5. Pour vérifier que clang a été correctement installé et que le projet a compilé lancez les commandes:
 
 ```
 cd /vagrant
+
 # Executable de l'AST Matcher
-build/clang_ast_matcher exemples/file.c -- -I/usr/include/clang/3.8/include
-# Executable de l'AST Visitor
-build/clang_ast_visitor exemples/file.c -- -I/usr/include/clang/3.8/include
+build/clang_ast_matcher exemples/file.c -- -I/vagrant/libs/clang_llvm/lib/clang/3.9.1/include/
+
+# Executable de l'AST Visitor (pour la réécriture de code)
+build/clang_ast_visitor exemples/file.c -- -I/vagrant/libs/clang_llvm/lib/clang/3.9.1/include/
 ```
 
 Vous devriez voir apparaître la sortie suivante pour l'AST Matcher
@@ -57,7 +59,63 @@ Accédez au code source avec éditeur de texte ou votre IDE favori depuis votre 
 
 **Conseil**: Si vous n'utilisez que l'AST visitor ou l'AST Matcher nous vous conseillons de mettre en commantaire les lignes indiqués vers la fin du fichier **Makefile** pour accélerer la compilation du projet.
 
-## Commandes
+## Installation manuelle
+
+Nous vous conseillons d'utiliser cette méthode que si vous ne pouvez pas utiliser vagrant ou que vous n'êtes pas administrateur de votre système.
+1. Télécharger de linux, vous vous conseillons d'utiliser ubuntu 16.04 (pour des raisons de dépendances avec les outils utilisés), vous pouvez en utiliser une autre éventuellement mais nous ne garantissons rien.
+Si vous souhaitez un système léger nous vous conseillons lubuntu: http://cdimages.ubuntu.com/lubuntu/releases/16.04/release/lubuntu-16.04-desktop-amd64.iso
+Si vous avez déjà un système d'exploitation linux natif, passé à l'étape 4.
+2. Suivez le guide d'installation d'une machine virtuelle disponible [ici](https://docs.oracle.com/cd/E26217_01/E35193/html/qs-create-vm.html). A la figure 6.9, pensez à remplacer l'iso par celui que vous venez de télécharger.
+3. Lancer la machine virtuelle et suivez le guide d'instllation. Choissisez vous même votre nom d'utilisateur et votre mot de passe, assurez vous d'avoir un accès root avec votre utilisateur (administrateur).
+4. Télécharger git depuis le dépôt aptitude ```sudo apt-get install git ```
+5. Cloner le dépôt du tutoriel de clang et déplacer le dans le dossier vagrant
+```
+cd
+git clone https://github.com/vbouquet/tutoriel-ast-clang.git
+sudo mv tutoriel-ast-clang /vagrant
+cd /vagrant
+```
+6. Installer toutes les dépendances avec la commande ```script/install.sh```
+7. Vérifier que l'installation s'est correctement effectué en lançant les commandes suivantes:
+```
+cd /vagrant
+
+# Executable de l'AST Matcher
+build/clang_ast_matcher exemples/file.c -- -I/vagrant/libs/clang_llvm/lib/clang/3.9.1/include/
+```
+
+Vous devriez voir apparaître la sortie suivante pour l'AST Matcher
+```
+#include stdio.h
+#include stdlib.h
+Fonction définie: somme
+Fonction appelée: a
+Fonction appelée: b
+Fonction définie: division
+Fonction appelée: a
+Fonction appelée: b
+Fonction définie: hello_world
+Fonction appelée: printf
+Fonction définie: main
+Fonction appelée: hello_world
+Fonction appelée: somme
+Fonction appelée: a
+Fonction appelée: b
+Fonction appelée: division
+Fonction appelée: a
+Fonction appelée: b
+```
+
+```
+cd /vagrant
+
+# Executable de l'AST Visitor (pour la réécriture de code)
+build/clang_ast_visitor exemples/file.c -- -I/vagrant/libs/clang_llvm/lib/clang/3.9.1/include/
+```
+
+Vous devriez voir apparaître un message d'erreur, ceci est normal. Vérifiez qu'un fichier file.c est présent dans le dossier output et qu'une fonction 'somme_mglwnafh_Cthulhu_Rlyeh_wgah_nagl_fhtagn' est bien présente.
+
+## Commandes (utilitaire)
 
 ```
 # Démarrrer la VM
@@ -72,6 +130,16 @@ vagrant destroy
 # Se connecter en ssh à la VM
 vagrant ssh
 
-# Lancez une commande depuis votre système
-vagrant ssh -c "build/clang_ast_matcher exemples/<votre_fichier_a_analyser> -- -I/usr/include/clang/3.8/include"
+# Compiler vos fichiers clang
+cd /vagrant
+make
+
+# Exécuter l'AST Matcher
+build/clang_ast_matcher exemples/file.c -- -I/vagrant/libs/clang_llvm/lib/clang/3.9.1/include/
+
+# Exécuter l'AST Visitor (rewriter)
+build/clang_ast_visitor exemples/file.c -- -I/vagrant/libs/clang_llvm/lib/clang/3.9.1/include/
+
+# Lancez une commande depuis votre système (avec vagrant)
+vagrant ssh -c "build/clang_ast_matcher exemples/<votre_fichier_a_analyser> -- -I/vagrant/libs/clang_llvm/lib/clang/3.9.1/include/"
 ```
