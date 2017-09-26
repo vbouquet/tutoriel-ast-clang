@@ -89,7 +89,7 @@ SRC_CLANG_DIR := src
 BUILDDIR := build
 FILE_BIN := clang_ast_matcher
 FILE_SRC := clang_ast_matcher.cpp
-FILE_BIN2 := clang_ast_vistor
+FILE_BIN2 := clang_ast_visitor
 FILE_SRC2 := clang_ast_visitor.cpp
 
 
