@@ -110,11 +110,17 @@ Vous devriez voir apparaître un message d'erreur, ceci est **normal**. Vérifie
 # Démarrrer la VM
 vagrant up
 
+# Redémarrer la VM
+vagrant reload
+
 # Eteindre la VM
 vagrant halt
 
 # Supprimer la VM
 vagrant destroy
+
+# Obtenir des informations sur l'état de la VM
+vagrant status
 
 # Se connecter en ssh à la VM
 vagrant ssh
