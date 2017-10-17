@@ -12,7 +12,7 @@
 ## Pré-requis
 1. Nous utilisons vagrant pour installer les dépendances dans une machine virtuelle, vous pouvez l'obtenir ici : [Télécharger vagrant](https://www.vagrantup.com/downloads.html)
 2. Nous utilisons virtualbox pour déployer la machine virtuelle, vous pouvez l'obtenir ici: [Télécharger Virtualbox](https://www.virtualbox.org/wiki/Downloads)
-3. Vous pouvez utiliser l'outil de gestion de version git pour télécharger ce dépôt ou bien le faire manuel.
+3. Vous pouvez utiliser l'outil de gestion de version git pour télécharger ce dépôt ou bien le faire manuellement en cliquant sur le bouton vert "cloner ou télécharger" en haut à droite du dépôt.
 
 ## Installation avec vagrant (conseillé)
 1. Télécharger le dépôt manuellement à l'addresse https://github.com/vbouquet/tutoriel-ast-clang/archive/master.zip ou cloner le avec git ```git clone https://github.com/vbouquet/tutoriel-ast-clang.git```
