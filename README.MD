@@ -24,19 +24,10 @@
 ### ASTMatcher:
 ```
 cd /vagrant
-build/clang_ast_matcher exemples/file.c -- -I/vagrant/libs/clang_llvm/lib/clang/3.9.1/include/
+build/clang_ast_matcher exemples/file.c -extra-arg=-I/vagrant/libs/clang_llvm/lib/clang/3.9.1/include/ --
 ```
 
-Attention: vous devriez voir apparaître le message d'erreur suivant dans la sortie, ceci est **normal**:
-```
-Error while trying to load a compilation database:
-Could not auto-detect compilation database for file "exemples/file.c"
-No compilation database found in /vagrant/exemples or any parent directory
-json-compilation-database: Error while opening JSON database: No such file or directory
-Running without flags.
-```
-
-En dessous du message d'erreur vous devriez voir apparaître la sortie suivante pour l'AST Matcher:
+Vous devriez voir apparaître la sortie suivante pour l'AST Matcher:
 ```
 #include stdio.h
 Fonction définie: somme
