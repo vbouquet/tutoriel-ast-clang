@@ -132,7 +132,7 @@ void add_command_line_argument(int &argc, const char ** &argv, const char *arg) 
 int main(int argc, const char **argv) {
 
     // (Optionnel) A activer pour récupérer les commentaires de types: //, ///, /* */, /** **/
-    add_command_line_argument(argc, argv, "-fparse-all-comments");
+    add_command_line_argument(argc, argv, "-extra-arg-before=-fparse-all-comments");
 
     CommonOptionsParser OptionsParser(argc, argv, MyToolCategory);
     ClangTool Tool(OptionsParser.getCompilations(), OptionsParser.getSourcePathList());

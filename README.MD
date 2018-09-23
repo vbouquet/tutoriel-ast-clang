@@ -21,13 +21,22 @@
 4. Entrez dans la machine virtuelle avec la commande ```vagrant ssh``` et vous êtes maintenant isolé de votre système et prêt à travailler avec clang.
 5. Pour vérifier que clang a été correctement installé et que le projet a compilé lancez les commandes:
 
-ASTMatcher:
+### ASTMatcher:
 ```
 cd /vagrant
 build/clang_ast_matcher exemples/file.c -- -I/vagrant/libs/clang_llvm/lib/clang/3.9.1/include/
 ```
 
-Vous devriez voir apparaître la sortie suivante pour l'AST Matcher
+Attention: vous devriez voir apparaître le message d'erreur suivant dans la sortie, ceci est **normal**:
+```
+Error while trying to load a compilation database:
+Could not auto-detect compilation database for file "exemples/file.c"
+No compilation database found in /vagrant/exemples or any parent directory
+json-compilation-database: Error while opening JSON database: No such file or directory
+Running without flags.
+```
+
+En dessous du message d'erreur vous devriez voir apparaître la sortie suivante pour l'AST Matcher:
 ```
 #include stdio.h
 Fonction définie: somme
@@ -40,7 +49,7 @@ Fonction appelée: somme
 Fonction appelée: division
 ```
 
-ASTVisitor:
+### ASTVisitor:
 ```
 cd /vagrant
 
@@ -48,7 +57,13 @@ cd /vagrant
 build/clang_ast_visitor exemples/file.c -- -I/vagrant/libs/clang_llvm/lib/clang/3.9.1/include/
 ```
 
-Vous devriez voir apparaître un message d'erreur, ceci est normal. Vérifiez qu'un fichier file.c est présent dans le dossier output et qu'une fonction 'somme_mglwnafh_Cthulhu_Rlyeh_wgah_nagl_fhtagn' est bien présente.
+Attention: vous devriez voir apparaître le message d'erreur suivant dans la sortie, ceci est **normal**:
+```
+exemples/file.c:1:10: fatal error: 'stdio.h' file not found
+#include <stdio.h>
+         ^
+```
+Vérifiez qu'un fichier file.c est présent dans le dossier output et qu'une fonction 'somme_mglwnafh_Cthulhu_Rlyeh_wgah_nagl_fhtagn' est bien présente.
 
 Votre machine virtuelle partage avec votre système d'explotation le dossier tutoriel-ast-clang. Vous pouvez donc faire toutes les modifications que vous souhaitez à l'intérieur, et celles ci se récupercuterons dans la machine virtuelle dans le dossier /vagrant.
 
