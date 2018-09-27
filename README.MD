@@ -84,7 +84,7 @@ cd /vagrant
 ASTMatcher:
 ```
 cd /vagrant
-build/clang_ast_matcher exemples/file.c -- -I/vagrant/libs/clang_llvm/lib/clang/3.9.1/include/
+build/clang_ast_matcher exemples/file.c -extra-arg=-I/vagrant/libs/clang_llvm/lib/clang/3.9.1/include/ --
 ```
 
 Vous devriez voir apparaître la sortie suivante pour l'AST Matcher
@@ -103,7 +103,9 @@ Fonction appelée: division
 ASTVisitor:
 ```
 cd /vagrant
-build/clang_ast_matcher exemples/file.c -extra-arg=-I/vagrant/libs/clang_llvm/lib/clang/3.9.1/include/ --
+
+# Executable de l'AST Visitor (pour la réécriture de code)
+build/clang_ast_visitor exemples/file.c -- -I/vagrant/libs/clang_llvm/lib/clang/3.9.1/include/
 ```
 
 Vous devriez voir apparaître un message d'erreur, ceci est **normal**. Vérifiez qu'un fichier file.c est présent dans le dossier output et qu'une fonction 'somme_mglwnafh_Cthulhu_Rlyeh_wgah_nagl_fhtagn' est bien présente.
